@@ -19,6 +19,9 @@ import undetected_chromedriver as uc
 
 # from private import env_vars
 import json
+import logging
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 MIN = "min"
 MAX = "max"
@@ -76,14 +79,7 @@ def create_driver(drivers_route: str = None,
     if install or not drivers_route:
         drivers_route = download_chrome_driver()
 
-    if not drivers_route:
-        driver_manager = Service(drivers_route)
-        # driver_manager = ChromeDriverManager().install()
-        # if install:
-        #     chromedriver_autoinstaller.install()
-    else:
-        driver_manager = Service(drivers_route)
-
+    driver_manager = Service(drivers_route)
     options = Options()
 
     num_win_size = (None, None)
@@ -160,7 +156,7 @@ def create_driver(drivers_route: str = None,
 
     if any(num_win_size):
         dr.set_window_size(num_win_size[0], num_win_size[1])
-        dr.set_window_position(window_position[0], window_position[1])  # posión en pantalla
+        dr.set_window_position(window_position[0], window_position[1])  # posición en pantalla
     wt = WebDriverWait(dr, wait_time)
 
     if initial_url is not None:
