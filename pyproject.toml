@@ -16,3 +16,10 @@ dependencies = [
     "chromedriver-autoinstaller>=0.6.4",
     "undetected-chromedriver>=3.5.5"
 ]
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+packages = ["init_selenium"]
+
+[tool.setuptools.package-data]
+"*" = ["LICENSE.txt"]
