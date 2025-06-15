@@ -140,27 +140,28 @@ def create_driver(
     if camouflage:
         options.add_argument("--disable-blink-features=AutomationControlled")
 
-    # Experimental options
-    options.add_experimental_option("excludeSwitches", [
-        "enable-automation",
-        "ignore-certificate-errors",
-        "enable-logging"
-    ])
-
-    # Browser preferences
-    options.add_experimental_option("prefs", {
-        "profile.default_content_setting_values.notifications": notification_level,
-        "intl.accept_languages": list(language),
-        "credentials_enable_service": save_passwords
-    })
-
     # Initialize driver
     try:
         if undetectable:
-            options.add_argument("user-data-dir=./")
-            options.add_experimental_option("detach", True)
+            # options.add_argument("user-data-dir=./")
+            # options.add_experimental_option("detach", True)
+            # options.add_experimental_option("excludeSwitches", ["enable-logging"])
             driver = uc.Chrome(options=options, driver_executable_path=driver_path)
         else:
+            # Experimental options
+            options.add_experimental_option("excludeSwitches", [
+                "enable-automation",
+                "ignore-certificate-errors",
+                "enable-logging"
+            ])
+
+            # Browser preferences
+            options.add_experimental_option("prefs", {
+                "profile.default_content_setting_values.notifications": notification_level,
+                "intl.accept_languages": list(language),
+                "credentials_enable_service": save_passwords
+            })
+
             service = Service(driver_path)
             driver = webdriver.Chrome(service=service, options=options)
 
@@ -176,7 +177,7 @@ def create_driver(
             logger.info(f"Navigating to initial URL: {initial_url}")
             driver.get(initial_url)
 
-        if cookies:
+        if cookies and cookies != {}:
             logger.info("Setting cookies...")
             for cookie in cookies:
                 driver.add_cookie(cookie)
