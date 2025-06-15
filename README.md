@@ -1,6 +1,19 @@
-# init_driver
+# init-selenium
 
-`init_driver.py` is a Python utility for quickly initializing and customizing Selenium Chrome WebDriver sessions, with support for undetected Chrome, user agent spoofing, language settings, and more. It is designed to simplify web scraping and automation tasks.
+`init_selenium` is a Python package that provides utilities for quickly initializing and customizing Selenium Chrome WebDriver sessions, with support for undetected Chrome, user agent spoofing, language settings, and more. It is designed to simplify web scraping and automation tasks.
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/init-selenium.git
+   cd init-selenium
+   ```
+
+2. Install in development mode:
+   ```bash
+   pip install -e .
+   ```
 
 ## Features
 
