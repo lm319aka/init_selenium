@@ -7,7 +7,7 @@ name = "init-selenium"
 version = "0.1.0"
 description = "A utility for initializing and managing Selenium WebDriver instances"
 authors = [
-    { name="Your Name", email="your.email@example.com" }
+    { name="lm319aka", email="s1llyr00st3r@gmail.com" }
 ]
 readme = "README.md"
 requires-python = ">=3.8"
