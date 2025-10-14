@@ -6,13 +6,13 @@
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/init-selenium.git
-   cd init-selenium
+   git clone https://github.com/lm319aka/init_selenium.git
+   cd init_selenium
    ```
 
-2. Install in development mode:
+2. Install module:
    ```bash
-   pip install -e .
+   pip install "git+https://github.com/lm319aka/init_selenium"
    ```
 
 ## Features
@@ -30,9 +30,9 @@
 ### Basic Example
 
 ```python
-from init_driver import create_driver
+from init_driver import create_driver, WINDOW_MAX
 
-driver, wait = create_driver(window_size="max")
+driver, wait = create_driver(window_size=WINDOW_MAX)
 driver.get("https://www.google.com/")
 # ... your automation code ...
 driver.quit()
