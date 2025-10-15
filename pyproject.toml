@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "init-selenium"
-version = "0.1.0"
+version = "0.2.1"
 description = "A utility for initializing and managing Selenium WebDriver instances"
 authors = [
     { name="lm319aka", email="s1llyr00st3r@gmail.com" }
