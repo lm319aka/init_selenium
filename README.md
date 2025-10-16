@@ -1,6 +1,6 @@
-# init-selenium
+# init-selenium (<= python 3.11)
 
-`init_selenium` is a Python package that provides a convenient `DriverInit` class for initializing and customizing Selenium Chrome WebDriver sessions. It supports undetected Chrome, user agent management, language settings, and more, making it ideal for web scraping and automation tasks.
+`init_selenium` is a Python package that provides a convenient `DriverInit` class for initializing and customizing Selenium Chrome WebDriver sessions. It supports undetected Chrome, user agent management, language settings, and more, making it ideal for web scraping and automation tasks. **it supports Python 3.8+ up to 3.11, some dependencies are not compatible with Python 3.12+ (distutils deprecated or removed), so we install them**
 
 ## Installation
 

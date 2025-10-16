@@ -1,4 +1,5 @@
-{"langs": 
+LANGUAGES = {
+    "langs": 
           {"Abkhazian": "ab",
            "Afar": "aa",
            "Afrikaans": "af",

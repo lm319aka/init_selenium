@@ -1,4 +1,8 @@
-import os.path
+from init_selenium.langs import LANGUAGES
+import logging
+from typing import Optional, Tuple, Dict, Union
+import time
+import json
 
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -6,10 +10,6 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 import chromedriver_autoinstaller
 import undetected_chromedriver as uc
-import json
-import logging
-from typing import Optional, Tuple, Dict
-import time
 from webdriver_manager.core.manager import DriverManager
 
 from selenium.webdriver.common.by import By
@@ -38,7 +38,6 @@ class LanguageManager:
 
     def __init__(self, lang: str):
         self.lang = lang.title()
-        self.lang_file_path = "./driver_info/langs.json"
         self.langcode = self.get_language_code()
 
     def get_language_code(self) -> Tuple[str, str]:
@@ -46,24 +45,15 @@ class LanguageManager:
         Retrieves language code from JSON configuration
         Returns tuple of (language_code, language_code)
         """
-        try:
-            with open(self.lang_file_path, "r", encoding="utf-8") as lang_file:
-                lang_data = json.load(lang_file)
-                lang_label = lang_data["langs"].get(self.lang)
 
-                if not lang_label:
-                    raise KeyError(f"Language '{self.lang}' not found in configuration")
+        lang_label = LANGUAGES["langs"].get(self.lang)
 
-                # Extract primary language code
-                primary_lang = lang_label.split(',')[0].strip()
-                return primary_lang, primary_lang
+        if not lang_label:
+            raise KeyError(f"Language '{self.lang}' not found in configuration")
 
-        except FileNotFoundError:
-            logger.error(f"Language configuration file not found: {self.lang_file_path}")
-            raise
-        except json.JSONDecodeError:
-            logger.error("Invalid JSON in language configuration file")
-            raise
+        # Extract primary language code
+        primary_lang = lang_label.split(',')[0].strip()
+        return primary_lang, primary_lang
 
 
 class DriverInit:
@@ -76,12 +66,14 @@ class DriverInit:
                  ):
         self.drivers_route = drivers_route
         self.user_agent = user_agent
+
         if isinstance(language, LanguageManager):
             self.language = language.langcode
         else:
             self.language = language
+        
         self.force_install = force_install
-        self.user_agent_json = "./driver_info/driver_data.json"
+        # self.user_agent_json = "./driver_info/driver_data.json"
 
     @staticmethod
     def install_chrome_driver() -> str:
@@ -107,7 +99,6 @@ class DriverInit:
                       undetectable: bool = False,
                       cookies: Optional[Dict[str, str]] = None,
                       initial_url: Optional[str] = None,
-                      save_user_agent_data: bool = True
                       ) -> Tuple[webdriver.Chrome, WebDriverWait]:
         """
         Creates and configures a Chrome WebDriver instance with specified options
@@ -143,14 +134,6 @@ class DriverInit:
         # Add Chrome options
         if self.user_agent:
             options.add_argument(f"user-agent={self.user_agent}")
-        else:
-            if os.path.exists(self.user_agent_json):
-                with open(self.user_agent_json, "r") as ua_file:
-                    self.user_agent = json.loads(ua_file.read())
-                options.add_argument(f"user-agent={self.user_agent}")
-
-            else:
-                raise FileNotFoundError("No driver_data.json file found")
 
         if not web_security:
             options.add_argument("--disable-web-security")
@@ -217,9 +200,9 @@ class DriverInit:
                 for cookie in cookies:
                     driver.add_cookie(cookie)
 
-            if save_user_agent_data:
-                with open(self.user_agent_json, "w") as ua_file:
-                    ua_file.write(json.dumps(self.user_agent))
+            # if save_user_agent_data:
+            #     with open(self.user_agent_json, "w") as ua_file:
+            #         ua_file.write(json.dumps(self.user_agent))
 
             logger.info("Chrome WebDriver initialized successfully")
             return driver, wait

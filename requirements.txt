@@ -1,3 +1,5 @@
 selenium>=4.33.0
 chromedriver_autoinstaller>=0.6.4
 undetected_chromedriver>=3.5.5
+webdriver-manager>=4.0.1
+standard-distutils

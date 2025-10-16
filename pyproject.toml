@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "init-selenium"
-version = "0.2.1"
+version = "0.3.0"
 description = "A utility for initializing and managing Selenium WebDriver instances"
 authors = [
     { name="lm319aka", email="s1llyr00st3r@gmail.com" }
@@ -15,7 +15,8 @@ dependencies = [
     "selenium>=4.33.0",
     "chromedriver-autoinstaller>=0.6.4",
     "undetected-chromedriver>=3.5.5",
-    "webdriver-manager"
+    "webdriver-manager>=4.0.1",
+    "standard-distutils"
 ]
 
 [tool.setuptools]
